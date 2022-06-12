@@ -1,5 +1,6 @@
-const UserSchema = ({ define }, { STRING }) => {
+const UserSchema = ({ define }, { STRING, INTEGER }) => {
   const UserTable = define("User", {
+    id: INTEGER,
     displayName: STRING,
     email: STRING,
     password: STRING,
