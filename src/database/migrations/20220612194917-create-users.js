@@ -25,6 +25,16 @@ module.exports = {
         type: Sequelize.STRING(255),
         allowNull: false
       },
+      createdAt: {
+        allowNull: false,
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.fn("NOW"), // FONT: Site coreano => https://velog.io/@kaitlin_k/ERROR-1364-Field-createdAt-doesnt-have-a-default-value
+     },
+     updatedAt: {
+        allowNull: false,
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.fn("NOW"),
+     },
     });
   },
   down: async (queryInterface, Sequelize) => {
