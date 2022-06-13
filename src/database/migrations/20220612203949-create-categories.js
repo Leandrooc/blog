@@ -9,8 +9,9 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       name: {
+        allowNull: false,
         type: Sequelize.STRING(255)
-      }
+      },
     });
   },
   down: async (queryInterface, Sequelize) => {
