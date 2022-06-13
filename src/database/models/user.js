@@ -1,6 +1,7 @@
 const UserSchema = (sequelize, DataTypes) => {
   const UserTable = sequelize.define("User", {
     // id: DataTypes.INTEGER, Comentado funciona com Warning, descomentado quebra tudo depois de fazer o auth service;
+    id: { type: DataTypes.INTEGER, primaryKey: true },
     displayName: DataTypes.STRING,
     email: DataTypes.STRING,
     password: DataTypes.STRING,
