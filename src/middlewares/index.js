@@ -1,7 +1,7 @@
-const checkEmailAndPassword = require('./checkEmailAndPassword');
+const validateUserData = require('./validateUserData');
 const isNotEmpty = require('./isNotEmpty');
 
 module.exports = {
-  checkEmailAndPassword,
+  validateUserData,
   isNotEmpty,
 };
