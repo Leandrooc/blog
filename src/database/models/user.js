@@ -1,10 +1,10 @@
-const UserSchema = ({ define }, { STRING, INTEGER }) => {
-  const UserTable = define("User", {
-    id: INTEGER,
-    displayName: STRING,
-    email: STRING,
-    password: STRING,
-    image: STRING,
+const UserSchema = (sequelize, DataTypes) => {
+  const UserTable = sequelize.define("User", {
+    // id: DataTypes.INTEGER, Comentado funciona com Warning, descomentado quebra tudo depois de fazer o auth service;
+    displayName: DataTypes.STRING,
+    email: DataTypes.STRING,
+    password: DataTypes.STRING,
+    image: DataTypes.STRING,
   });
   UserTable.associate = ({ BlogPost }) => {
     UserTable.hasMany(BlogPost, { as: 'posts', foreignKey: 'userId' })

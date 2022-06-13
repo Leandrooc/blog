@@ -1,11 +1,11 @@
 const express = require('express');
+const authService = require('../services/auth.service');
 
 const authRouter = express.Router();
-// const authService = require('../services/auth.service');
 
-authRouter.post('/', (req, res) => {
-  const newUser = req.body;
-  return res.status(201).json(newUser);
+authRouter.post('/', async (req, res) => {
+  const token = await authService.authenticate(req.body);
+  return res.status(200).json(token);
 });
 
 module.exports = authRouter;
