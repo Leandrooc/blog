@@ -7,4 +7,9 @@ userRouter.post('/', middlewares.validateUserData, async (req, res) => {
   return res.status(201).json(newUserToken);
 });
 
+userRouter.get('/', middlewares.authenticate, async (req, res) => {
+  const users = await userService.getUsers();
+  return res.status(200).json(users);
+});
+
 module.exports = userRouter;

@@ -14,4 +14,5 @@ module.exports = {
         throw eslintFix({ status: 409, message: 'User already registered' });
       }
   },
+  getUsers: () => User.findAll(),
 };
