@@ -15,4 +15,5 @@ module.exports = {
       }
   },
   getUsers: () => User.findAll(),
+  getUserById: (id) => User.findOne({ where: { id } }),
 };

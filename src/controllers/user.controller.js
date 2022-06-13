@@ -12,4 +12,10 @@ userRouter.get('/', middlewares.authenticate, async (req, res) => {
   return res.status(200).json(users);
 });
 
+userRouter.get('/:id', middlewares.authenticate, async (req, res) => {
+  const user = await userService.getUserById(req.params.id);
+  if (!user) return res.status(404).json({ message: 'User does not exist' });
+  return res.status(200).json(user);
+});
+
 module.exports = userRouter;
