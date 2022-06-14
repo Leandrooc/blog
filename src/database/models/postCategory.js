@@ -1,10 +1,5 @@
 const PostCategorySchema = (sequelize, DataTypes) => {
   const PostCategoryTable = sequelize.define("PostCategory", {
-    id: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement: true,
-   },
     postId: DataTypes.INTEGER,
     categoryId: DataTypes.INTEGER
   }, {
