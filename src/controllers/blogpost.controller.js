@@ -20,4 +20,9 @@ blogpostRouter.get('/:id', async (req, res) => {
   return res.status(200).json(post);
 });
 
+blogpostRouter.put('/:id', middlewares.validatePutData, async (req, res) => {
+  const updated = await blogpostService.putPost(req.params.id, req.body);
+  return res.status(200).json(updated);
+});
+
 module.exports = blogpostRouter;

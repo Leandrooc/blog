@@ -56,4 +56,6 @@ module.exports = {
        },
      ],
      }),
+     putPost: (id, { title, content }) =>
+       BlogPost.update({ title, content }, { where: { id } }),
 };
