@@ -64,4 +64,24 @@ module.exports = {
        BlogPost.destroy({
          where: { id },
        }),
+     getBySearchParams: (searchParams) => 
+        BlogPost.findAll({
+            where: {
+              [Sequelize.Op.or]: [
+                { title: {
+                  [Sequelize.Op.like]: `%${searchParams}%`,
+                } },
+                { content: {
+                  [Sequelize.Op.like]: `%${searchParams}%`,
+                } },
+              ],
+            },
+            include: [{
+              model: User,
+              as: 'user',
+              attributes: ['id', 'displayName', 'email', 'image'],
+            },
+            { model: Category, as: 'categories' },
+          ],
+       }),
 };

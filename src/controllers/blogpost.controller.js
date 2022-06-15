@@ -3,13 +3,21 @@ const blogpostService = require('../services/blogpost.service');
 const userService = require('../services/user.service');
 const middlewares = require('../middlewares');
 
+blogpostRouter.get('/search', async (req, res) => {
+  const { q: searchParams } = req.query;
+  if (!searchParams) return res.status(200).json(await blogpostService.getPosts());
+
+  const posts = await blogpostService.getBySearchParams(searchParams);
+  return res.status(200).json(posts);
+});
+
 blogpostRouter.post('/', middlewares.validatePostData, async (req, res) => {
   const { user: { email: loggedUserEmail } } = res.locals;
   const { dataValues: { id: userId } } = await userService.getUserByEmail(loggedUserEmail);
 
   const result = await blogpostService.createPostAndCategory(req.body, userId);
   if (!result) return res.status(400).json({ message: '"categoryIds" not found' });
-  
+
   return res.status(201).json(await blogpostService.findById(result));
 });
 
