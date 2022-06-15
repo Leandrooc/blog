@@ -11,7 +11,6 @@ blogpostRouter.post('/', middlewares.validatePostData, async (req, res) => {
 
 blogpostRouter.get('/', async (req, res) => {
   const posts = await blogpostService.getPosts();
-  // const response = { ...posts };
   return res.status(200).json(posts);
 });
 

@@ -30,19 +30,6 @@ module.exports = {
   findById: async (id) => 
     BlogPost.findOne({ where: { id } }),
   getPosts: () => 
-    // BlogPost.findAll({
-    //    include: [{
-    //     model: User,
-    //     as: 'userPost',
-    //     attributes: ['id', 'displayName', 'email', 'image'],
-    //   },
-    //   {
-    //     model: Category,
-    //     as: 'blogPost',
-    //     // where: { id: 1 },
-    //   },
-    //   ],
-    // }),
       BlogPost.findAll({
        include: [{
         model: User,
