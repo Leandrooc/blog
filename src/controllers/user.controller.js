@@ -12,6 +12,16 @@ userRouter.get('/', middlewares.authenticate, async (req, res) => {
   return res.status(200).json(users);
 });
 
+userRouter.delete('/me', middlewares.authenticate, async (req, res) => {
+  const { user: { email: loggedUserEmail } } = res.locals;
+  const { dataValues: { id } } = await userService.getUserByEmail(loggedUserEmail);
+
+  const deletedUser = await userService.deleteUser(id);
+  if (deletedUser > 0) return res.status(204).end();
+  
+  return res.status(400).json({ message: 'Error: User not deleted' });
+});
+
 userRouter.get('/:id', middlewares.authenticate, async (req, res) => {
   const user = await userService.getUserById(req.params.id);
   if (!user) return res.status(404).json({ message: 'User does not exist' });

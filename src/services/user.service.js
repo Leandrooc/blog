@@ -18,5 +18,9 @@ module.exports = {
   getUserById: (id) => 
     User.findOne({ where: { id }, attributes: ['id', 'displayName', 'email', 'image'] }),
   getUserByEmail: (email) =>
-  User.findOne({ where: { email }, attributes: ['id'] }),
+    User.findOne({ where: { email }, attributes: ['id'] }),
+  deleteUser: (id) =>
+    User.destroy({
+      where: { id },
+  }),
 };
