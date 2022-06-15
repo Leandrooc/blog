@@ -42,4 +42,18 @@ module.exports = {
       },
     ],
     }),
+    getPostsById: (id) =>
+      BlogPost.findOne({
+        where: { id },
+        include: [{
+         model: User,
+         as: 'user',
+         attributes: ['id', 'displayName', 'email', 'image'],
+       },
+       {
+         model: Category,
+         as: 'categories',
+       },
+     ],
+     }),
 };
