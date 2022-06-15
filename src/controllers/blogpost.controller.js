@@ -21,8 +21,23 @@ blogpostRouter.get('/:id', async (req, res) => {
 });
 
 blogpostRouter.put('/:id', middlewares.validatePutData, async (req, res) => {
-  const updated = await blogpostService.putPost(req.params.id, req.body);
-  return res.status(200).json(updated);
+  const { user: { email: loggedUserEmail } } = res.locals;
+  const { id: postId } = req.params;
+
+  const { dataValues: { user } } = await blogpostService.getPostsById(postId);
+  const postOwnerEmail = user.dataValues.email;
+
+  if (loggedUserEmail !== postOwnerEmail) {
+     return res.status(401).json({ message: 'Unauthorized user' }); 
+}
+
+  const [updated] = await blogpostService.putPost(postId, req.body);
+  if (updated > 0) {
+    const updatedPost = await blogpostService.getPostsById(postId);
+    return res.status(200).json(updatedPost);
+  }
+
+  return res.status(400).json({ message: 'Error: Post not updated' });
 });
 
 module.exports = blogpostRouter;
