@@ -5,13 +5,13 @@ const config = require('../database/config/config');
 const sequelize = new Sequelize(config.development);
 
 module.exports = {
-  createPostAndCategory: async ({ title, content, categoryIds }) => {
+  createPostAndCategory: async ({ title, content, categoryIds }, userId) => {
     try {
       const result = await sequelize.transaction(async (t) => {
         const post = await BlogPost.create({
           title,
           content,
-          userId: 1,
+          userId,
         }, { transaction: t });
 
         const promisses = [];
@@ -29,6 +29,8 @@ module.exports = {
   },
   findById: async (id) => 
     BlogPost.findOne({ where: { id } }),
+  findByEmail: async (email) =>
+    BlogPost.findOne({ where: { email } }),
   getPosts: () => 
       BlogPost.findAll({
        include: [{
@@ -58,4 +60,8 @@ module.exports = {
      }),
      putPost: (id, { title, content }) =>
        BlogPost.update({ title, content }, { where: { id } }),
+     deletePost: (id) =>
+       BlogPost.destroy({
+         where: { id },
+       }),
 };
