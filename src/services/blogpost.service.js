@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const { BlogPost, PostCategory } = require('../database/models');
+const { BlogPost, PostCategory, User, Category } = require('../database/models');
 const config = require('../database/config/config');
 
 const sequelize = new Sequelize(config.development);
@@ -28,5 +28,31 @@ module.exports = {
     } catch (error) { return false; }
   },
   findById: async (id) => 
-  BlogPost.findOne({ where: { id } }),
+    BlogPost.findOne({ where: { id } }),
+  getPosts: () => 
+    // BlogPost.findAll({
+    //    include: [{
+    //     model: User,
+    //     as: 'userPost',
+    //     attributes: ['id', 'displayName', 'email', 'image'],
+    //   },
+    //   {
+    //     model: Category,
+    //     as: 'blogPost',
+    //     // where: { id: 1 },
+    //   },
+    //   ],
+    // }),
+      BlogPost.findAll({
+       include: [{
+        model: User,
+        as: 'user',
+        attributes: ['id', 'displayName', 'email', 'image'],
+      },
+      {
+        model: Category,
+        as: 'categories',
+      },
+    ],
+    }),
 };

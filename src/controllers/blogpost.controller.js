@@ -9,4 +9,10 @@ blogpostRouter.post('/', middlewares.validatePostData, async (req, res) => {
   return res.status(201).json(await blogpostService.findById(result));
 });
 
+blogpostRouter.get('/', async (req, res) => {
+  const posts = await blogpostService.getPosts();
+  // const response = { ...posts };
+  return res.status(200).json(posts);
+});
+
 module.exports = blogpostRouter;
